@@ -1,5 +1,8 @@
 package com.example.a26024.activitytest;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,9 +21,28 @@ public class FirstActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(FirstActivity.this,"haha",Toast.LENGTH_SHORT).show();
+                Toast.makeText(FirstActivity.this,"Start!",Toast.LENGTH_SHORT).show();
+                String data = "1";
+                Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+                //intent.addCategory("com.example.activitytest.MY_CATEGORY");
+                //intent.setData(Uri.parse("http://www.baidu.com"));
+                intent.putExtra("extra_data",data);
+                startActivityForResult(intent,2);
             }
         });
+    }
+    String returneddata;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch(requestCode) {
+            case 2:
+                if(resultCode == RESULT_OK)
+                    returneddata = data.getStringExtra("data_return");
+                    Toast.makeText(FirstActivity.this,returneddata+"3",Toast.LENGTH_SHORT).show();
+                default:
+        }
+
+
     }
 
     @Override
